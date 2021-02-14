@@ -2,10 +2,15 @@
 <html lang="ja">
 <head>
     <title>LaravelNews</title>
+    <script src="{{ asset('js/main.js') }}" type="text/javascript"></script>
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}" type='text/css'>
 </head>
 <body>
     <h1>LaravelNews</h1>
-    <form action="{{ url('/')}}" method="post">
+    
+    <p>{{ session('msg') }}</p>
+    
+    <form action="{{ route('article_add')  }}" method="post" onsubmit="return addArticleConfirm()">
         <dl class="form">
         @csrf
             <dt>タイトル</dt>
@@ -15,5 +20,11 @@
             <div class="button"><input type="submit" value="投稿"> </div>
       </dl> 
     </form>
+    @foreach($articles as $article)
+        <h3>{{ $article->title }}</h3>
+        <p>{{ $article->text }}</p>
+        <a href="{{route('comment_home', $article->id)}}">コメントを表示する</a>
+        <hr>
+    @endforeach
 </body>
 </html>
