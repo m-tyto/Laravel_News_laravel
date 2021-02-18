@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use Validator;
 
 class ArticleController extends Controller
 {
@@ -16,22 +17,16 @@ class ArticleController extends Controller
     
     //記事の追加処理
     public function add(Request $request){
-        $db = new Article();
-        $articles = $db->getData();
-        $title = $request->input('title');
-        $text = $request->input('sentence');
-        if(empty($title) || empty($text)){
-            $msg = "タイトルまたは本文が入力されていません";
-            return redirect()->route('home')->with(['msg' => $msg]);
-        }
-        if(strlen($title) > 30){
-            $msg = "タイトルは30字以内で入力してください";
-            return redirect()->route('home')->with(['msg' => $msg]);
-        }
-        
-        $db->title = $title;
-        $db->text = $text;
-        $db->save();
+        $this->validate($request,[
+            'title' => 'required|max:30',
+            'text' => 'required',
+        ],[
+            'title.required' => "タイトルは必須入力です",
+            'text.required' => "記事は必須入力です",
+            'title.max' => "タイトルは30字以内です"
+        ]);
+       
+        Article::create($request->all());
         return redirect('/');
     }
 }

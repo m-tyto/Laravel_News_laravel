@@ -21,32 +21,29 @@ class CommentController extends Controller
     }
 
     //コメント追加処理
-    public function add($id,Request $request){
-        $db = new Comment;
-        $article = $db->getArticle($id);
-        $name = $request->input("name");
-        $comment = $request->input("comment");
-
-        if(empty($comment)){
-            $msg =  "コメントを入力してください";
-            return redirect()->route('comment_home',['id' => $id])->with(['msg' => $msg]);
-        }
-
-        $db->article_id = $id;
-        $db->name = $name;
-        $db->comment = $comment;
-        $db->save();
+    public function add($id, Request $request){
+        $this->validate($request,[
+            'name' => 'required|max:30',
+            'comment' => 'required',
+        ],[
+            'name.required' => "名前は必須入力です",
+            'comment.required' => "コメントは必須入力です"
+        ]);
+        //dd($request);
+        Comment::create($request->all());
+        $id = $request->input('article_id');
         
         return redirect()->route('comment_home', ['id' => $id]);
     }
 
     //コメント削除処理
-    public function delete($id,Request $request){
+    public function delete(Request $request){
         $db = new Comment;
         $comment_id = $request->input("comment_id");
+        $article_id = $request->input("article_id");
         $comment = Comment::find($comment_id);
         $comment->delete();
         
-        return redirect()->route('comment_home', ['id' => $id]);
+        return redirect()->route('comment_home', ['id' => $article_id]);
     }
 }

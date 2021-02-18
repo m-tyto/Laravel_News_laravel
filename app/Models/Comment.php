@@ -30,4 +30,8 @@ class Comment extends Model
         return $comments;
     }
 
+    public function article(){
+        return $this->belongsTo('App\Article', 'foreign_key');
+    }
+
 }

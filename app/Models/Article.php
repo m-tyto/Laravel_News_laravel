@@ -15,6 +15,9 @@ class Article extends Model
         "title",
         "text"
     ];
+    public function comment(){
+        return $this->hasOne("App\Comment");
+    }
 
     //全記事の取得
     public function getData(){
