@@ -16,5 +16,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', "ArticleController@index")->name('home');
 Route::post('/',"ArticleController@add")->name('article_add');
 Route::get('/comment/{id}',"CommentController@index")->name('comment_home');
-Route::post('/comment/{id}',"CommentController@add")->name('comment_add');
+Route::post('/comment',"CommentController@add")->name('comment_add');
 Route::delete('/comment/{id}',"CommentController@delete")->name('comment_del');

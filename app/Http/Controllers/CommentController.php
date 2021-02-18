@@ -21,7 +21,7 @@ class CommentController extends Controller
     }
 
     //コメント追加処理
-    public function add($id, Request $request){
+    public function add(Request $request){
         $this->validate($request,[
             'name' => 'required|max:30',
             'comment' => 'required',
