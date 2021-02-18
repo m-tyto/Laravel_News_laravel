@@ -10,8 +10,7 @@ class ArticleController extends Controller
 {
     //記事の表示処理
     public function index(){
-        $db = new Article();
-        $articles = $db->getData();
+        $articles = Article::All();
         return view("articles.index")->with('articles',$articles);
     }
     

@@ -7,8 +7,8 @@
 <body>
     <h1>LaravelNews</h1>
     <div class="article">
-        <h2>{{ $article->title }}</h3>
-        <p>{{ $article->text }}</p>
+        <h2>{{$article->title}}</h3>
+        <p>{{$article->text}}</p>
         <hr>
     </div>
 
@@ -19,7 +19,7 @@
     </ul>
     
     <h4>コメント</h3>
-    <form action="{{route('comment_add',['id' => $article->id])}}" method="post" onsubmit="return addCommentConfirm()">
+    <form action="{{route('comment_add')}}" method="post" onsubmit="return addCommentConfirm()">
         @csrf
         <dl class="form">
             <dt>名前</dt>

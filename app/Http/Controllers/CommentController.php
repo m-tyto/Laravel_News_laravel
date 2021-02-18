@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Article;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -10,9 +11,8 @@ class CommentController extends Controller
 
     //対象記事、コメント表示処理
     public function index($id){
-        $db = new Comment;
-        $article = $db->getArticle($id);
-        $comments = $db->getComment($id);
+       $article = Article::find($id);
+       $comments = Article::find($id)->comments()->get();
 
         return view("comments.index")->with([
             'article' => $article,
@@ -29,7 +29,6 @@ class CommentController extends Controller
             'name.required' => "名前は必須入力です",
             'comment.required' => "コメントは必須入力です"
         ]);
-        //dd($request);
         Comment::create($request->all());
         $id = $request->input('article_id');
         
