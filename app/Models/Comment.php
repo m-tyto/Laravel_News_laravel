@@ -18,18 +18,6 @@ class Comment extends Model
         "comment"
     ];
 
-    //対象記事取得
-    public function getArticle($article_id){
-        $article = DB::table('articles')->where('id',$article_id)->first();
-        return $article;
-    }
-
-    //対象コメント取得
-    public function getComment($article_id){
-        $comments = DB::table($this->table)->where('article_id',$article_id)->get();
-        return $comments;
-    }
-
     public function article(){
         return $this->belongsTo('App\Models\Article');
     }

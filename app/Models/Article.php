@@ -19,9 +19,4 @@ class Article extends Model
         return $this->hasMany('App\Models\Comment');
     }
 
-    //全記事の取得
-    public function getData(){
-        $data = DB::table($this->table)->get();
-        return $data;
-    }
 }

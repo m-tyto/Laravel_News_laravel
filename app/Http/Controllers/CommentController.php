@@ -12,7 +12,7 @@ class CommentController extends Controller
     //対象記事、コメント表示処理
     public function index($id){
        $article = Article::find($id);
-       $comments = Article::find($id)->comments()->get();
+       $comments = $article->comments;
 
         return view("comments.index")->with([
             'article' => $article,
